@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重要問題</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f8ff, #e8f5e9);
+    font-family: '微軟正黑體', sans-serif;
+    overflow: hidden;
+  }
+  #question-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    text-align: center;
+    padding: 20px;
+  }
+  h1 {
+    font-size: 2rem;
+    color: #333;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  }
+  .btn-container {
+    display: flex;
+    gap: 30px;
+  }
+  button {
+    font-size: 1.2rem;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.1s;
+  }
+  button:hover { transform: scale(1.05); }
+  #btn-yes {
+    background-color: #4CAF50;
+    color: white;
+  }
+  #btn-no {
+    background-color: #f44336;
+    color: white;
+    position: fixed;
+  }
+  #result-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  #result-screen h1 {
+    font-size: 2.5rem;
+    color: #e53935;
+  }
+  #result-screen img {
+    width: 280px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+  #countdown {
+    font-size: 1.2rem;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+  <div id="question-screen">
+    <h1>你覺得自己是笨蛋嗎？</h1>
+    <div class="btn-container">
+      <button id="btn-yes" onclick="showResult()">是</button>
+      <button id="btn-no" onmouseover="moveButton()" ontouchstart="moveButton()">不是</button>
+    </div>
+  </div>
+
+  <div id="result-screen">
+    <h1>我就知道！你終於承認了 😂</h1>
+    <img src="https://media.giphy.com/media/Vuw9m5wXviFIQ/giphy.gif" alt="Rick Roll">
+    <p id="countdown">3 秒後帶你看一個好康的...</p>
+  </div>
+
+  <script>
+    function moveButton() {
+      var btn = document.getElementById('btn-no');
+      var x = Math.random() * (window.innerWidth - btn.offsetWidth - 10);
+      var y = Math.random() * (window.innerHeight - btn.offsetHeight - 10);
+      btn.style.left = x + 'px';
+      btn.style.top  = y + 'px';
+    }
+
+    function showResult() {
+      document.getElementById('question-screen').style.display = 'none';
+      var result = document.getElementById('result-screen');
+      result.style.display = 'flex';
+      var sec = 3;
+      var el = document.getElementById('countdown');
+      var timer = setInterval(function() {
+        sec--;
+        el.textContent = sec + ' 秒後帶你看一個好康的...';
+        if (sec <= 0) {
+          clearInterval(timer);
+          window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
